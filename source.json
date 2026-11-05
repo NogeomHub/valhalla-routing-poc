@@ -1,0 +1,9 @@
+{
+  "url": "https://download.geofabrik.de/europe/monaco-261102.osm.pbf",
+  "bytes": 707090,
+  "sha256": "8bf157ebb123f6db9259d5fbfbfb92ed33dd9ca0906ace55255b179df726d89c",
+  "lastModified": "Tue, 03 Nov 2026 05:17:52 GMT",
+  "license": "ODbL-1.0",
+  "attribution": "\u00a9 OpenStreetMap contributors; extract by Geofabrik",
+  "scope": "Monaco regional extract, boundaries NOT certified"
+}
