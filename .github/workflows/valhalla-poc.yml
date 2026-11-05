@@ -1,0 +1,65 @@
+name: Standalone Valhalla smoke test
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: standalone-valhalla-poc
+  cancel-in-progress: false
+jobs:
+  smoke:
+    # Deliberately restricted to a personal, standalone PUBLIC repository.
+    # No private-repository charges, organization runner or application checkout.
+    if: >-
+      github.event.repository.private == false &&
+      github.event.repository.name == 'valhalla-routing-poc' &&
+      github.event.repository.owner.type == 'User'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout this standalone repository only
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, resolved during preparation
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Build small graph and test local API
+        id: smoke
+        timeout-minutes: 25
+        run: |
+          python3 tests.py -v
+          bash scripts/run.sh
+      - name: Collect final service log
+        if: always()
+        env:
+          SMOKE_OUTCOME: ${{ steps.smoke.outcome }}
+        run: |
+          mkdir -p work/out
+          docker logs valhalla-poc > work/out/service-final.log 2>&1 || true
+          docker rm -f valhalla-poc >/dev/null 2>&1 || true
+          python3 - <<'PYTHON'
+          import json, os
+          from pathlib import Path
+          out=Path('work/out');p=out/'manifest.json'
+          if os.environ.get('SMOKE_OUTCOME') != 'success':
+              data=json.loads(p.read_text()) if p.exists() else {}
+              data.update(stage='INCOMPLETE_OR_FAILED', globalCertificate='INCOMPLETE', tariffs=False)
+              p.write_text(json.dumps(data,indent=2))
+              (out/'REPORT.md').unlink(missing_ok=True)
+          elif not p.exists() or json.loads(p.read_text()).get('stage') != 'SMOKE_TEST_PASSED':
+              raise RuntimeError('SUCCESS_MANIFEST_MISSING')
+          for log in out.glob('*.log'):
+              if log.stat().st_size>2*1024*1024:
+                  with log.open('rb') as stream:
+                      stream.seek(-2*1024*1024,2);tail=stream.read()
+                  log.write_bytes(b'LOG TRUNCATED TO LAST 2 MiB\n'+tail)
+          PYTHON
+          du -sh work/out || true
+      - name: Retain small diagnostic artifacts for one day
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: valhalla-smoke-report
+          path: work/out/
+          retention-days: 1
+          compression-level: 9
+          if-no-files-found: warn
