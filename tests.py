@@ -1,4 +1,6 @@
 """Offline synthetic checks; do not execute Docker or contact any API."""
+import sys
+sys.path.insert(0,str(__import__("pathlib").Path(__file__).parent/"scripts"))
 import copy
 import hashlib
 import importlib.util
@@ -49,6 +51,20 @@ class Checks(unittest.TestCase):
         poc.report()
     def test_synthetic_success_never_global(self):
         self.success();d=poc.load('manifest.json');self.assertEqual(d['stage'],'SMOKE_TEST_PASSED');self.assertEqual(d['globalCertificate'],'INCOMPLETE');self.assertEqual(d['actualPbfSHA256'],hashlib.sha256(b'abc').hexdigest())
+    def test_real_recovery_probe_and_report(self):
+        f=json.loads((Path(__file__).parent/'tests_data/terminal-real.json').read_text())
+        poc.built()
+        def call(action,payload=None,**kw):
+            if action=='status': return {'version':'3.9.1'}
+            if action=='route': return {'trip':{'status':0,'legs':[f['leg']]}}
+            return copy.deepcopy(f['primary'] if payload['encoded_polyline']==f['leg']['shape'] else f['terminal'])
+        with patch.object(poc,'request',call),patch.object(poc.subprocess,'check_output',return_value=json.dumps(f['osm'])):
+            poc.probe()
+        poc.report()
+        m=poc.load('manifest.json')
+        self.assertTrue(m['terminalRecovery']);self.assertFalse(m['timingsCombined']);self.assertEqual(m['globalCertificate'],'INCOMPLETE')
+        self.assertEqual(poc.load('trace-0.json'),f['primary'])
+
     def test_wrong_download_size(self):
         (poc.W/'pilot.osm.pbf').write_bytes(b'ab')
         with self.assertRaisesRegex(RuntimeError,'PBF_SIZE_MISMATCH'):poc.check_source_file()
@@ -95,7 +111,7 @@ class Checks(unittest.TestCase):
         with patch.object(poc,'request',self.request),self.assertRaisesRegex(RuntimeError,'ROUTING_NOT_SUCCESSFUL'):poc.probe()
     def test_report_rechecks_way_ids(self):
         self.success();self.trace['edges'][0]['way_id']=None;poc.dump('trace-0.json',self.trace)
-        with self.assertRaisesRegex(RuntimeError,'WAY_IDS_MISSING'):poc.report()
+        with self.assertRaisesRegex(RuntimeError,'SMOKE_PROOF_INVALID'):poc.report()
     def test_report_rechecks_graph_hashes(self):
         self.success();(poc.W/'tiles/0.gph').write_bytes(b'MODIFIED')
         with self.assertRaisesRegex(RuntimeError,'BUILD_ARTIFACT_CHANGED'):poc.report()
@@ -115,4 +131,43 @@ class Checks(unittest.TestCase):
         r=subprocess.run(['bash',str(target/'run.sh')],env=env,capture_output=True)
         self.assertEqual(r.returncode,17)
 
+from terminal import complete, encode
+R=Path(__file__).resolve().parent
+
+class TerminalRegression(unittest.TestCase):
+ def setUp(self):
+  f=json.loads((R/'tests_data/terminal-real.json').read_text())
+  self.route,self.primary,self.tail,self.osm=f['leg'],f['primary'],f['terminal'],f['osm']
+
+ def call(self):return complete(self.route,self.primary,self.tail,self.osm)
+ def test_real_completion_without_global_certificate(self):
+  r=self.call();self.assertEqual(r['geometry']['pointCount'],185);self.assertEqual(r['geometry']['maxErrorMetres'],0);self.assertEqual(r['globalCertificate'],'INCOMPLETE');self.assertFalse(r['timingCombined'])
+  self.assertEqual(r['coverage'][1]['way_id'],308214646);self.assertEqual(r['coverage'][1]['routeShapeRange'],[183,184])
+ def test_raw_primary_still_refused(self):
+  with self.assertRaisesRegex(RuntimeError,'GEOMETRY_CORRESPONDENCE_UNPROVEN'):poc.verify_trace(self.route,self.primary)
+ def test_wrong_terminal_way_blocked(self):
+  self.tail['edges'][0]['way_id']=123
+  with self.assertRaisesRegex(RuntimeError,'WAY_UNPROVEN'):self.call()
+ def test_missing_terminal_geometry_blocked(self):
+  self.tail['shape']=encode(poc.decode(self.tail['shape'])[:1])
+  with self.assertRaisesRegex(RuntimeError,'GEOMETRY_INSUFFICIENT'):self.call()
+ def test_20cm_not_relaxed(self):
+  points=poc.decode(self.tail['shape']);points[-1]=(points[-1][0]+.000003,points[-1][1]);self.tail['shape']=encode(points)
+  with self.assertRaisesRegex(RuntimeError,'GEOMETRY_MISMATCH'):self.call()
+ def test_reverse_oneway_blocked(self):
+  self.osm['way']['tags']['oneway']='yes'
+  with self.assertRaisesRegex(RuntimeError,'DIRECTION_UNPROVEN'):self.call()
+ def test_ambiguous_node_blocked(self):
+  self.osm['way']['nodes'].append(1699777504)
+  with self.assertRaisesRegex(RuntimeError,'NODE_IDENTITY_UNPROVEN'):self.call()
+ def test_disconnected_order_blocked(self):
+  self.osm['way']['nodes'].insert(1,21913117)
+  with self.assertRaisesRegex(RuntimeError,'CONTINUITY_UNPROVEN'):self.call()
+ def test_condition_unknown_blocks(self):
+  self.osm['way']['tags']['oneway:conditional']='yes @ (Mo-Fr)'
+  with self.assertRaisesRegex(RuntimeError,'CONDITIONAL_PERMISSION_UNPROVEN'):self.call()
+ def test_no_silent_raw_mutation(self):
+  a,b=copy.deepcopy(self.primary),copy.deepcopy(self.tail);self.call();self.assertEqual(self.primary,a);self.assertEqual(self.tail,b)
+
 if __name__=='__main__':unittest.main()
+
