@@ -5,6 +5,7 @@ import math
 import os
 import re
 import shutil
+import subprocess
 import sys
 import time
 import urllib.request
@@ -183,7 +184,19 @@ def verified_outputs():
     route = load('route.json')
     if route.get('trip', {}).get('status') != 0 or not route['trip'].get('legs'):
         raise RuntimeError('ROUTING_NOT_SUCCESSFUL')
-    return [verify_trace(leg, load(f'trace-{i}.json')) for i, leg in enumerate(route['trip']['legs'])]
+    results = []
+    from terminal import complete
+    for i, leg in enumerate(route['trip']['legs']):
+        trace = load(f'trace-{i}.json')
+        if (O / f'terminal-trace-{i}.json').exists():
+            osm = load(f'terminal-osm-{i}.json')
+            if osm['sourcePbfSHA256'] != check_source_file()['actualSHA256']:
+                raise RuntimeError('OSM_PROOF_SOURCE_MISMATCH')
+            results.append(complete(leg, trace, load(f'terminal-trace-{i}.json'), osm))
+        else:
+            results.append(verify_trace(leg, trace))
+    return results
+
 
 
 def probe():
@@ -211,17 +224,39 @@ def probe():
         p = {'encoded_polyline': leg['shape'], 'shape_match': 'edge_walk', 'costing': 'auto', 'costing_options': payload['costing_options'], 'units': 'kilometers', 'filters': {'action': 'include', 'attributes': ATTRIBUTES}}
         dump(f'trace-request-{i}.json', p)
         dump(f'trace-{i}.json', request('trace_attributes', p))
+        trace = load(f'trace-{i}.json')
+        a, b = decode(leg['shape']), decode(trace['shape'])
+        if len(a) != len(b):
+            from terminal import encode
+            # The only recovery demonstrated: one missing segment, exact prefix.
+            if len(a) != len(b) + 1 or a[:-1] != b:
+                raise RuntimeError('TERMINAL_RECOVERY_NOT_PROVEN')
+            verify_trace({'shape': encode(a[:-1])}, trace)
+            wid = trace['edges'][-1]['way_id']
+            q = dict(p, encoded_polyline=encode(a[-2:]))
+            dump(f'terminal-request-{i}.json', q)
+            dump(f'terminal-trace-{i}.json', request('trace_attributes', q))
+            executable = W / 'osm-env/bin/python'
+            proof = subprocess.check_output([str(executable), str(ROOT/'scripts/read_osm.py'), str(W/'pilot.osm.pbf'), str(wid)], text=True)
+            osm = json.loads(proof)
+            osm['sourcePbfSHA256'] = check_source_file()['actualSHA256']
+            dump(f'terminal-osm-{i}.json', osm)
+
     legs = verified_outputs()
-    dump('smoke-result.json', {'status': 'ROUTING_SMOKE_TEST_PASSED', 'legs': legs, 'buildProofSHA256': sha(O / 'build-success.json'), 'globalCertificate': 'INCOMPLETE'})
+    dump('smoke-result.json', {'status': 'ROUTING_SMOKE_TEST_PASSED', 'legs': legs, 'buildProofSHA256': sha(O / 'build-success.json'), 'auditSHA256': audit_hashes(), 'globalCertificate': 'INCOMPLETE'})
+
+
+def audit_hashes():
+    return {p.name: sha(p) for pattern in ('route*.json', 'trace*.json', 'terminal*.json') for p in sorted(O.glob(pattern))}
 
 
 def report():
     b = check_build()
     result = load('smoke-result.json')
-    if result['status'] != 'ROUTING_SMOKE_TEST_PASSED' or result['buildProofSHA256'] != sha(O / 'build-success.json') or result['legs'] != verified_outputs():
+    if result.get('auditSHA256') != audit_hashes() or result['status'] != 'ROUTING_SMOKE_TEST_PASSED' or result['buildProofSHA256'] != sha(O / 'build-success.json') or result['legs'] != verified_outputs():
         raise RuntimeError('SMOKE_PROOF_INVALID')
-    dump('manifest.json', {'stage': 'SMOKE_TEST_PASSED', 'sourcePbf': source(), 'actualPbfSHA256': b['actualSHA256'], 'actualPbfBytes': b['actualBytes'], 'image': IMAGE, 'graphManifestSHA256': b['graphManifestSHA256'], 'configSHA256': b['configSHA256'], 'status': load('status.json'), 'runnerCommit': os.environ.get('GITHUB_SHA'), 'coverage': {'geometry': 'COHERENT_NOT_TOPOLOGICALLY_CERTIFIED', 'restrictions': 'INCOMPLETE', 'boundaries': 'INCOMPLETE'}, 'globalCertificate': 'INCOMPLETE', 'tariffs': False})
-    (O / 'REPORT.md').write_text('# Valhalla smoke test\n\nBuild, routing, geometric coherence and way_id retrieval succeeded.\n\nNo global topology certificate. Restrictions and boundaries INCOMPLETE. No APRR data.\n\n© OpenStreetMap contributors — ODbL 1.0. Extract: Geofabrik.\n', encoding='utf-8')
+    dump('manifest.json', {'stage': 'SMOKE_TEST_PASSED', 'sourcePbf': source(), 'actualPbfSHA256': b['actualSHA256'], 'actualPbfBytes': b['actualBytes'], 'image': IMAGE, 'graphManifestSHA256': b['graphManifestSHA256'], 'configSHA256': b['configSHA256'], 'status': load('status.json'), 'runnerCommit': os.environ.get('GITHUB_SHA'), 'routingTest': 'PASSED', 'geometricEdgeCoverage': 'COMPLETE', 'terminalRecovery': any('coverage' in leg for leg in result['legs']), 'timingsCombined': False, 'coverage': {'geometry': 'COHERENT_NOT_TOPOLOGICALLY_CERTIFIED', 'restrictions': 'INCOMPLETE', 'boundaries': 'INCOMPLETE'}, 'globalCertificate': 'INCOMPLETE', 'tariffs': False})
+    (O / 'REPORT.md').write_text('# Valhalla smoke test\n\nBuild, routing, geometric edge coverage and way_id retrieval succeeded. Raw primary and terminal responses remain separate; no timing or distance aggregate was manufactured.\n\nNo global topology certificate. Restrictions and boundaries INCOMPLETE. No APRR data.\n\n© OpenStreetMap contributors — ODbL 1.0. Extract: Geofabrik.\n', encoding='utf-8')
 
 
 if __name__ == '__main__':
