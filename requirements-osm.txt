@@ -1,0 +1,1 @@
+osmium==4.3.2 --hash=sha256:604a3145aa755790b91e3eefac7ddbb74d31f188fddbbbb988877cba50e88eb7
