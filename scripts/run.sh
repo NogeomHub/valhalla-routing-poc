@@ -8,6 +8,8 @@ cleanup() {
 }
 trap cleanup EXIT
 python3 scripts/poc.py prepare
+python3.12 -m venv work/osm-env
+work/osm-env/bin/pip install --disable-pip-version-check --no-deps --require-hashes --only-binary=:all: -r requirements-osm.txt > work/out/osm-install.log 2>&1
 IMAGE='ghcr.io/valhalla/valhalla@sha256:18cb42988e03c70dc4bc4ca095a259ec4db5e5df928be65956fc1c64c280b47a'
 export IMAGE
 # Bound the image pull and keep a record of the exact local image config.
