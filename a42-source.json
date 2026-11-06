@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/NogeomHub/valhalla-routing-poc/releases/download/a42-pilot-20261102-v1/a42-meximieux-amberieu.osm.pbf",
+  "bytes": 1064733,
+  "sha256": "e5912f17f620535e9b3be7dbd2e2b9963c778a7d1a873614b6ae901d1b793235",
+  "license": "ODbL-1.0",
+  "attribution": "\u00a9 OpenStreetMap contributors; parent extract Geofabrik",
+  "parentPbfSHA256": "c5849aa8b4cc1402c44ae0c9ebd9360fd7c89f5632e9bf9a0486cc03b76e65f4",
+  "extractionManifest": "a42-extraction-manifest.json",
+  "globalCoverage": "INCOMPLETE",
+  "extractionManifestSHA256": "7814479e586f7c99e26a608f8c1bd091cd14681aeb7dbffed6e1bc67ca6ecb3c"
+}

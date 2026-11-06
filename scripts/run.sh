@@ -1,15 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
+SCENARIO="${SCENARIO:-monaco}"
+case "$SCENARIO" in
+  monaco) DRIVER=scripts/poc.py ;;
+  a42-pilot) DRIVER=scripts/a42.py ;;
+  *) echo "UNKNOWN_SCENARIO" >&2; exit 1 ;;
+esac
 mkdir -p work/out work/tiles
 cleanup() {
   docker logs valhalla-poc > work/out/service-final.log 2>&1 || true
   docker rm -f valhalla-poc valhalla-build-poc >/dev/null 2>&1 || true
 }
 trap cleanup EXIT
-python3 scripts/poc.py prepare
+python3 "$DRIVER" prepare
 python3.12 -m venv work/osm-env
 work/osm-env/bin/pip install --disable-pip-version-check --no-deps --require-hashes --only-binary=:all: -r requirements-osm.txt > work/out/osm-install.log 2>&1
+if [[ "$SCENARIO" == a42-pilot ]]; then
+  work/osm-env/bin/python test_osm_audit.py -v > work/out/osm-audit-tests.log 2>&1
+fi
 IMAGE='ghcr.io/valhalla/valhalla@sha256:18cb42988e03c70dc4bc4ca095a259ec4db5e5df928be65956fc1c64c280b47a'
 export IMAGE
 # Bound the image pull and keep a record of the exact local image config.
@@ -30,12 +39,12 @@ timeout 900 docker run --rm --name valhalla-build-poc --network none --memory 6g
       --mjolnir-data-processing-use-admin-db false > /work/out/config.json
     valhalla_build_tiles -c /work/out/config.json /work/pilot.osm.pbf
   ' > work/out/build.log 2>&1
-python3 scripts/poc.py built
+python3 "$DRIVER" built
 # The service is reachable only through the runner loopback interface.
 docker run -d --name valhalla-poc --network bridge --memory 3g --cpus 2 \
   --user "$(id -u):$(id -g)" -v "$PWD/work:/work" -w /work \
   -p 127.0.0.1:8002:8002 --entrypoint valhalla_service \
   "$IMAGE" /work/out/config.json 1 > work/out/container-id.txt
-python3 scripts/poc.py probe
+python3 "$DRIVER" probe
 docker logs valhalla-poc > work/out/service.log 2>&1
-python3 scripts/poc.py report
+python3 "$DRIVER" report

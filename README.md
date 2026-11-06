@@ -81,3 +81,13 @@ Un seul appel edge_walk supplémentaire est autorisé, uniquement pour UN segmen
 Le manifeste distingue `routingTest=PASSED`, `geometricEdgeCoverage=COMPLETE` et `globalCertificate=INCOMPLETE`. `terminalRecovery` indique si cette méthode a été utilisée, `timingsCombined=false` interdit de lire le résultat comme un cumul fabriqué. Les durées, distances et indicateurs de péage des réponses restent bruts et séparés. Les empreintes des appels et preuves sont liées au résultat du test et revérifiées avant le rapport.
 
 L'égalité ou la cohérence des géométries n'est jamais un certificat global. Les restrictions/frontières globales restent INCOMPLETE. Cette version est testée localement ; aucune exécution GitHub n'a encore validé la version 5.4.8.
+
+## Scénario A42 préparé V5.5.2
+
+Voir [A42-PLAN.md](A42-PLAN.md) pour la distribution versionnée, les nouveaux fichiers et les résultats locaux. Le choix par défaut reste Monaco. Le scénario A42 est actuellement NO-GO pour valider les deux parcours : le premier appel edge_walk retourne 443. Aucun certificat global.
+
+## Publication du pilote A42 V5.5.4
+
+Le blocage 443 historique décrit en V5.5.2 est corrigé par le waypoint sur le nœud OSM 309487296 (45.9134166,5.2498414). Essai réel V5.5.3 : 626 points, 160 arêtes identifiées dont 15 A42, erreur 0 m ; contrôles de sens/continuité conservés, permissions inconnues toujours INCOMPLETE. 57 tests locaux passent. Monaco reste le choix par défaut.
+
+Le scénario a42-pilot utilise la release de données a42-pilot-20261102-v1 et vérifie taille et SHA-256 avant toute construction. Sélectionner Actions → Standalone Valhalla smoke test → Run workflow → scenario: a42-pilot. Aucune exécution distante de cette version n’est revendiquée dans cette documentation.

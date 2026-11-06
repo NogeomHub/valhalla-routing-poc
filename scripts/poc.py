@@ -9,6 +9,7 @@ import subprocess
 import sys
 import time
 import urllib.request
+import urllib.error
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,7 +49,7 @@ def check_source_file():
     return {'actualBytes': src['bytes'], 'actualSHA256': actual}
 
 
-def prepare():
+def prepare(approved_url='https://download.geofabrik.de/europe/monaco-261102.osm.pbf'):
     # Dedicated ephemeral workspace only: stale success files cannot survive a retry.
     if W.exists():
         shutil.rmtree(W)
@@ -61,7 +62,7 @@ def prepare():
     dump('resources.json', {'freeBytes': free, 'ramBytes': ram, 'cpu': os.cpu_count(), 'imageOS': os.environ.get('ImageOS'), 'imageVersion': os.environ.get('ImageVersion')})
     if free < 4 * 1024**3 or ram < 7 * 1024**3:
         raise RuntimeError('RESOURCE_BUDGET_INSUFFICIENT')
-    if src['url'] != 'https://download.geofabrik.de/europe/monaco-261102.osm.pbf' or not re.fullmatch('[0-9a-f]{64}', src['sha256']):
+    if src['url'] != approved_url or not re.fullmatch('[0-9a-f]{64}', src['sha256']):
         raise RuntimeError('SOURCE_NOT_APPROVED')
     if type(src['bytes']) is not int or not 0 < src['bytes'] <= 2 * 1024**2:
         raise RuntimeError('SOURCE_SIZE_INVALID')
@@ -109,8 +110,13 @@ def check_build():
 def request(action, payload=None, timeout=30):
     data = json.dumps(payload).encode() if payload is not None else None
     req = urllib.request.Request('http://127.0.0.1:8002/' + action, data=data, headers={'Content-Type': 'application/json'})
-    with urllib.request.urlopen(req, timeout=timeout) as response:
-        return json.load(response)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as response:
+            return json.load(response)
+    except urllib.error.HTTPError as error:
+        (O / f'http-error-{action}-{time.time_ns()}.json').write_bytes(error.read())
+        raise
+
 
 
 def decode(shape):
@@ -199,7 +205,7 @@ def verified_outputs():
 
 
 
-def probe():
+def probe(payload=None):
     check_build()
     deadline = time.monotonic() + 120
     while time.monotonic() < deadline:
@@ -213,7 +219,7 @@ def probe():
     dump('status.json', status)
     if not re.fullmatch(r'3\.9\.1(?:[-+].*)?', str(status.get('version', ''))):
         raise RuntimeError('VALHALLA_VERSION_UNEXPECTED')
-    payload = {'locations': [{'lat': 43.7311, 'lon': 7.4206}, {'lat': 43.7391, 'lon': 7.4267}], 'costing': 'auto', 'costing_options': {'auto': {'use_tolls': .5}}, 'units': 'kilometers', 'shape_format': 'polyline6'}
+    payload = payload if payload is not None else {'locations': [{'lat': 43.7311, 'lon': 7.4206}, {'lat': 43.7391, 'lon': 7.4267}], 'costing': 'auto', 'costing_options': {'auto': {'use_tolls': .5}}, 'units': 'kilometers', 'shape_format': 'polyline6'}
     dump('route-request.json', payload)
     route = request('route', payload)
     dump('route.json', route)

@@ -1,6 +1,15 @@
 name: Standalone Valhalla smoke test
 on:
   workflow_dispatch:
+    inputs:
+      scenario:
+        description: Scenario to test
+        type: choice
+        required: true
+        default: monaco
+        options:
+          - monaco
+          - a42-pilot
 permissions:
   contents: read
 concurrency:
@@ -25,8 +34,11 @@ jobs:
       - name: Build small graph and test local API
         id: smoke
         timeout-minutes: 25
+        env:
+          SCENARIO: ${{ inputs.scenario }}
         run: |
           python3 tests.py -v
+          python3 test_a42.py -v
           bash scripts/run.sh
       - name: Collect final service log
         if: always()

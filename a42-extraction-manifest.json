@@ -1,0 +1,2741 @@
+{
+  "schemaVersion": 1,
+  "extractorVersion": "a42-road-extract/1.0",
+  "extractorSHA256": "7f29fd4c3fc01327d53ed3e3d114b6e0444495d0b626d0e32a22b5a875e2d1fc",
+  "parent": {
+    "path": "/workspace/work/osm-sqlite-prototype/real-import/rhone-alpes-261102.osm.pbf",
+    "url": "https://download.geofabrik.de/europe/france/rhone-alpes-261102.osm.pbf",
+    "sha256": "c5849aa8b4cc1402c44ae0c9ebd9360fd7c89f5632e9bf9a0486cc03b76e65f4",
+    "bytes": 532203346,
+    "snapshotLabel": "2026-11-02"
+  },
+  "pilot": {
+    "path": "/workspace/work/a42-corridor-extract-v1/output/a42-meximieux-amberieu.osm.pbf",
+    "sha256": "e5912f17f620535e9b3be7dbd2e2b9963c778a7d1a873614b6ae901d1b793235",
+    "bytes": 1064733
+  },
+  "method": {
+    "bboxLonLat": [
+      5.1,
+      45.84,
+      5.43,
+      46.0
+    ],
+    "selection": "highway ways whose segments intersect bbox, including crossing segments without interior vertices",
+    "wholeWays": true,
+    "junctionContext": "all highway ways sharing an explicit OSM node with spatial core ways",
+    "restrictionSearch": "ALL restriction relations in entire parent, matching any member way in core/context or via node on their full geometry",
+    "recursiveRelationMemberClosure": true,
+    "dependencyWayRestrictions": "not claimed inventoried independently outside core/context",
+    "objectMetadata": "raw objects unchanged",
+    "sourceBoundsCopiedAsCoverage": false
+  },
+  "counts": {
+    "nodes": 98826,
+    "ways": 12795,
+    "relations": 73
+  },
+  "coreWays": 12333,
+  "contextOnlyWays": 461,
+  "dependencyOnlyWays": 1,
+  "restrictionRelations": [
+    {
+      "id": 1318118,
+      "version": 1,
+      "tags": {
+        "restriction": "only_straight_on",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 60923449,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 1033377056,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 89216752,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 3367378,
+      "version": 3,
+      "tags": {
+        "restriction": "only_straight_on",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 42461649,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 142840,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 666533628,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 3367379,
+      "version": 4,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 68463312,
+          "role": "to"
+        },
+        {
+          "type": "n",
+          "id": 142836,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 477692156,
+          "role": "from"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 6011422,
+      "version": 5,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 400460568,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 2992946755,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 608817790,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 6011424,
+      "version": 3,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 863040405,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 2992943351,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 400460570,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 6323440,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "n",
+          "id": 1600213101,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 345343996,
+          "role": "from"
+        },
+        {
+          "type": "w",
+          "id": 146786934,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 6323441,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "n",
+          "id": 410632885,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 345343996,
+          "role": "from"
+        },
+        {
+          "type": "w",
+          "id": 85676819,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 7081942,
+      "version": 2,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "n",
+          "id": 345130438,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 666533615,
+          "role": "from"
+        },
+        {
+          "type": "w",
+          "id": 666533615,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 7081943,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 31046882,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 345130438,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 31046883,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 7081961,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 481105228,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 345130457,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 481105228,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 7081962,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 31046885,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 345130457,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 481105228,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 7081963,
+      "version": 3,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "n",
+          "id": 345130457,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1044327655,
+          "role": "from"
+        },
+        {
+          "type": "w",
+          "id": 1044327655,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 7564231,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 176035984,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 1865962731,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 10569778,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 7621715,
+      "version": 2,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 68463328,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 142840,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 68463328,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 7621716,
+      "version": 3,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 68463328,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 142840,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 68463320,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 7621717,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 320349460,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 142841,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 42461652,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 9413265,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 677970852,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 602096542,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 47250423,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 9413266,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 677970852,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 602096542,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 677970852,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 10073468,
+      "version": 2,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 99404738,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 979701436,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1256716532,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 11180281,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 10565210,
+          "role": "from"
+        },
+        {
+          "type": "w",
+          "id": 10565269,
+          "role": "to"
+        },
+        {
+          "type": "n",
+          "id": 91414772,
+          "role": "via"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 11772738,
+      "version": 1,
+      "tags": {
+        "restriction": "only_straight_on",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 61837589,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 345121909,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 860809856,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 11772739,
+      "version": 2,
+      "tags": {
+        "restriction": "only_straight_on",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 860809856,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 345121909,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1349540483,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 11772740,
+      "version": 2,
+      "tags": {
+        "restriction": "only_straight_on",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1349540483,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 345121909,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 860809856,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 11786547,
+      "version": 1,
+      "tags": {
+        "restriction": "only_straight_on",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 860367127,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 530146136,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 89216749,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 13969338,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 400460568,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 2992943373,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 608817787,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 13969339,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "source": "BDOrtho IGN - available 2022 at the latest",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1044327660,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 2992943372,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 44446699,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 13969340,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 44446705,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 345130405,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 31046881,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 14424840,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1083797155,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 5126186027,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1083797153,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 14424860,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 8102030,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 5126186025,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 527245676,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16636838,
+      "version": 2,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 10212887,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 142871,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1318998716,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16636839,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 101013125,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 1166795804,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1220303796,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16636840,
+      "version": 2,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 425610987,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 1166795845,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1515358127,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16671550,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 971405444,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 84514261,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1222121883,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16698227,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 426632735,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 2046696979,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 194159824,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16698228,
+      "version": 2,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1502450013,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 83117403,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1502450011,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16698238,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 710489860,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 36471613,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 5229374,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16698239,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 77006514,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 906792672,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 710489861,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16698240,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 171886093,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 36471626,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 5229372,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16770097,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 227463122,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 1733090821,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1227672292,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16770098,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1227672292,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 1733090821,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1227672293,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16776713,
+      "version": 1,
+      "tags": {
+        "restriction": "no_right_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1228105465,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 1643497907,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 150966705,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 16776714,
+      "version": 1,
+      "tags": {
+        "restriction": "no_straight_on",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 151246189,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 1643497907,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 150966705,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17389077,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 42462724,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 530146170,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 860367127,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17428792,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 47250416,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 602096577,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 210931734,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17578531,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1281295689,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 982826986,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1281295689,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17578532,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1281295691,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 11892361029,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 56825606,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17578533,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1281295691,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 11892361029,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1281295691,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17578580,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1281301810,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 982870998,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1281301811,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17578581,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 84603160,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 982870998,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 84603160,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17585163,
+      "version": 1,
+      "tags": {
+        "restriction": "no_right_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 43999894,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 559471271,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1282157660,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17585164,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 43999894,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 559471271,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 43999894,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598380,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 89216751,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 10169483934,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 89060731,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598381,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 89216751,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 10169483934,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 89216751,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598384,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 946998707,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 8765905792,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1111564807,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598385,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 946998707,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 8765905792,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 946998707,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598386,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1008755292,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 1033377056,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1008755292,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598387,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 89216752,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 1033377056,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 89216752,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598388,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1283394387,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 10169483934,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1283394387,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598389,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1283394387,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 10169483933,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1283394387,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598390,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 601205998,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 10169483933,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 601205998,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598391,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 89060731,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 762692922,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 60923449,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598392,
+      "version": 2,
+      "tags": {
+        "restriction": "only_straight_on",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1455768124,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 10169483933,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 601205998,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 17598393,
+      "version": 2,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "n",
+          "id": 8765905792,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1539304717,
+          "role": "from"
+        },
+        {
+          "type": "w",
+          "id": 1539304717,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 18025440,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1314448395,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 599535981,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 46985569,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 18475191,
+      "version": 1,
+      "tags": {
+        "restriction": "no_right_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1346922894,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 12459318345,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1346922889,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 18475192,
+      "version": 1,
+      "tags": {
+        "restriction": "no_right_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1346922886,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 12459318320,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1346922897,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 18475358,
+      "version": 1,
+      "tags": {
+        "restriction": "no_right_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1346929639,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 12459355474,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1346929645,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 18475359,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1346929642,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 12459355486,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1346929643,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 18475360,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1346929651,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 12459355487,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1346929648,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 19571434,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "n",
+          "id": 11682819598,
+          "role": "via"
+        },
+        {
+          "type": "n",
+          "id": 979701436,
+          "role": ""
+        },
+        {
+          "type": "w",
+          "id": 1256716534,
+          "role": "to"
+        },
+        {
+          "type": "w",
+          "id": 1256716533,
+          "role": "from"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 21510798,
+      "version": 1,
+      "tags": {
+        "restriction": "no_u_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1188667865,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 6754462182,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1188667864,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 21510799,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1188667869,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 11037505567,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1188667868,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    },
+    {
+      "id": 21510800,
+      "version": 1,
+      "tags": {
+        "restriction": "no_left_turn",
+        "type": "restriction"
+      },
+      "members": [
+        {
+          "type": "w",
+          "id": 1188667862,
+          "role": "from"
+        },
+        {
+          "type": "n",
+          "id": 6754462176,
+          "role": "via"
+        },
+        {
+          "type": "w",
+          "id": 1188667863,
+          "role": "to"
+        }
+      ],
+      "interpretation": "NOT_EVALUATED"
+    }
+  ],
+  "rootRestrictionCount": 73,
+  "dependencyClosureRounds": 1,
+  "missingDependencies": [],
+  "outputMissingReferences": [],
+  "coverage": {
+    "geometry": "COMPLETE_RELATIVE_TO_SELECTED_WAYS",
+    "restrictionInventory": "SCOPED_COMPLETE_RELATIVE_TO_PARENT",
+    "restrictionMembers": "COMPLETE_RELATIVE_TO_PARENT",
+    "restrictionSemantics": "NOT_EVALUATED",
+    "global": "INCOMPLETE",
+    "boundaryReasons": [
+      "Parent regional extract not globally exhaustive",
+      "External road connections of support/dependency ways are not recursively acquired",
+      "Routing outside spatial core must be audited before certification"
+    ],
+    "waysExtendingOutsideBBox": [
+      4280433,
+      10100520,
+      10558608,
+      10588713,
+      10588733,
+      10643836,
+      24357196,
+      24357209,
+      24357210,
+      25210914,
+      25210915,
+      25210916,
+      31047699,
+      37083048,
+      37732223,
+      50597845,
+      50763465,
+      62117878,
+      63535015,
+      63727197,
+      64062184,
+      64094460,
+      64094551,
+      64845814,
+      64853304,
+      64853314,
+      69558952,
+      69558956,
+      69558958,
+      71177896,
+      71177960,
+      77903092,
+      89697379,
+      89957118,
+      99614835,
+      102954727,
+      106361747,
+      106375429,
+      112683011,
+      125603631,
+      125603642,
+      125619393,
+      125619394,
+      125619400,
+      125619401,
+      125619403,
+      125619404,
+      125619406,
+      127170021,
+      129497784,
+      129497785,
+      129497786,
+      129497787,
+      129497788,
+      129516143,
+      131417747,
+      133295381,
+      135700231,
+      135701799,
+      135701804,
+      135701805,
+      135701820,
+      135903446,
+      135903460,
+      135903467,
+      135903476,
+      135903511,
+      136485215,
+      136485222,
+      136485818,
+      136708687,
+      137425008,
+      138322113,
+      138322114,
+      138322115,
+      138323272,
+      138323274,
+      138324852,
+      138325313,
+      139432002,
+      142882368,
+      142882369,
+      142882371,
+      142882926,
+      142882932,
+      142882934,
+      143665992,
+      145429366,
+      145434246,
+      146633489,
+      146633490,
+      146633492,
+      146633494,
+      150966532,
+      150966614,
+      150966703,
+      150966705,
+      150966726,
+      150966732,
+      150966751,
+      151246189,
+      152784154,
+      152786440,
+      153073891,
+      156368692,
+      156368699,
+      156368757,
+      156368762,
+      156368782,
+      156368803,
+      156648429,
+      156648430,
+      156648432,
+      165719976,
+      165719978,
+      166561573,
+      173010869,
+      173128737,
+      174644912,
+      177954601,
+      177954604,
+      177954607,
+      177954613,
+      178006939,
+      178006946,
+      178006960,
+      178006961,
+      178006963,
+      186459408,
+      187203265,
+      187243260,
+      187400096,
+      187400100,
+      187449342,
+      187449358,
+      187472844,
+      187521571,
+      187521591,
+      187521667,
+      189204146,
+      189204148,
+      189210122,
+      189210123,
+      189276463,
+      189344179,
+      189345623,
+      191089381,
+      191881813,
+      192384209,
+      192384215,
+      192384220,
+      192934572,
+      192934585,
+      192934595,
+      192934601,
+      192934624,
+      192934639,
+      192999642,
+      192999973,
+      194159823,
+      194159826,
+      196471765,
+      196471766,
+      196472344,
+      196472346,
+      196473209,
+      196473210,
+      196622517,
+      196622521,
+      196622544,
+      196627589,
+      196628153,
+      196628353,
+      196628355,
+      196628485,
+      196632637,
+      196651706,
+      196651708,
+      198237105,
+      198237106,
+      203655496,
+      203658628,
+      213820235,
+      213820255,
+      213820267,
+      213822690,
+      213823600,
+      213826204,
+      214719392,
+      214719393,
+      218419131,
+      218419133,
+      218419134,
+      218419143,
+      218419145,
+      218535249,
+      218535251,
+      218535257,
+      218535265,
+      218535269,
+      218535270,
+      218535272,
+      218871528,
+      223683531,
+      223683533,
+      224487292,
+      224487295,
+      224487301,
+      224502958,
+      226666758,
+      226666760,
+      227391768,
+      229081307,
+      229081333,
+      233449526,
+      233509755,
+      233910683,
+      233910684,
+      233910685,
+      235166073,
+      235166080,
+      238468894,
+      238572778,
+      238572783,
+      240302913,
+      243564244,
+      244118584,
+      244118586,
+      244118589,
+      244118611,
+      244118612,
+      244118624,
+      244118630,
+      244118632,
+      244118633,
+      244118935,
+      244965178,
+      244981103,
+      244981104,
+      245081180,
+      245512090,
+      245512093,
+      245514705,
+      245514708,
+      245514718,
+      248790514,
+      248790518,
+      249080968,
+      249120397,
+      250615415,
+      250762856,
+      251248897,
+      251527695,
+      251527697,
+      258894043,
+      258894048,
+      258894050,
+      258894064,
+      260490188,
+      260490281,
+      260490284,
+      260490291,
+      272711390,
+      272711391,
+      272711399,
+      272711403,
+      272711411,
+      272711413,
+      272711414,
+      272711415,
+      272711416,
+      272711421,
+      272711423,
+      274895316,
+      275485043,
+      275489350,
+      275489354,
+      275489359,
+      276236503,
+      277105914,
+      281224516,
+      281228656,
+      281228659,
+      281228660,
+      281228666,
+      281228670,
+      283271637,
+      289935048,
+      291625737,
+      291625741,
+      291708705,
+      291708710,
+      294429739,
+      298561865,
+      300930625,
+      303726745,
+      305897140,
+      306124932,
+      306158350,
+      306158941,
+      306348153,
+      306386218,
+      306487728,
+      306487836,
+      306575837,
+      306575873,
+      307194091,
+      307194351,
+      307194633,
+      307194921,
+      307213511,
+      307214033,
+      307214503,
+      307850125,
+      307850126,
+      307852855,
+      308030664,
+      308031211,
+      308106366,
+      308106379,
+      308156589,
+      308156592,
+      308156596,
+      308156600,
+      308156603,
+      308156605,
+      308156606,
+      308156607,
+      308156611,
+      308156615,
+      308156619,
+      308156621,
+      308156622,
+      308156623,
+      308156626,
+      308156628,
+      338045807,
+      340911722,
+      340911776,
+      340911784,
+      342569567,
+      342630104,
+      344134345,
+      345406022,
+      361192210,
+      362537462,
+      362537464,
+      365390504,
+      368430493,
+      368430499,
+      368430533,
+      368450672,
+      369392141,
+      369392142,
+      369392143,
+      369392147,
+      369392150,
+      369392151,
+      369392153,
+      369392155,
+      369392156,
+      369392157,
+      369392159,
+      369392163,
+      371827956,
+      371979757,
+      374339681,
+      374339843,
+      374356529,
+      374356530,
+      374397802,
+      374397816,
+      384805488,
+      386380139,
+      386380140,
+      386380143,
+      386380145,
+      386380148,
+      386380150,
+      386380151,
+      386380158,
+      388721947,
+      390542961,
+      396267436,
+      396267441,
+      398742708,
+      398742715,
+      398742722,
+      398742724,
+      398742726,
+      398742729,
+      400505719,
+      400860778,
+      400860780,
+      404070909,
+      404675053,
+      404730879,
+      404983762,
+      404983763,
+      407505844,
+      416549535,
+      416549537,
+      417675656,
+      419918933,
+      426632732,
+      426632751,
+      427969658,
+      428945865,
+      428945872,
+      429065279,
+      429094414,
+      429094416,
+      442557309,
+      442557328,
+      447358852,
+      447379925,
+      447379981,
+      447399075,
+      448313404,
+      449694689,
+      449698067,
+      449700458,
+      449853371,
+      449853383,
+      449857254,
+      449873261,
+      451053119,
+      451053153,
+      452039617,
+      452218651,
+      453707837,
+      454704872,
+      458717776,
+      459000221,
+      461345445,
+      461766758,
+      461766764,
+      461766765,
+      461766766,
+      464584976,
+      465130151,
+      466901367,
+      466932412,
+      466944337,
+      467412913,
+      467418813,
+      467418814,
+      467418815,
+      467418820,
+      467418825,
+      467418827,
+      467422433,
+      467422434,
+      467422435,
+      467422437,
+      467422438,
+      467422799,
+      467423208,
+      467423213,
+      467424097,
+      476137854,
+      476137855,
+      476137856,
+      477727029,
+      477727032,
+      477727035,
+      490188526,
+      490188527,
+      490189931,
+      503089006,
+      503089010,
+      518510722,
+      518510723,
+      522391632,
+      522400639,
+      524600675,
+      525927039,
+      535226565,
+      540200152,
+      552707716,
+      560113689,
+      589073313,
+      589073314,
+      589073315,
+      589073316,
+      609313783,
+      620118586,
+      637167000,
+      641172904,
+      645252100,
+      645252102,
+      645252103,
+      645252104,
+      645260632,
+      663164416,
+      663164418,
+      663164419,
+      663164420,
+      666533609,
+      666533610,
+      666533612,
+      667702184,
+      672827963,
+      673263338,
+      673690687,
+      673690697,
+      680781748,
+      683573911,
+      685736251,
+      685736254,
+      689796406,
+      691263061,
+      691263064,
+      697695930,
+      707018743,
+      707018747,
+      707018749,
+      707819433,
+      707969912,
+      707969913,
+      707969915,
+      707969916,
+      707969917,
+      707969920,
+      707969924,
+      707969925,
+      707969929,
+      709251530,
+      710691070,
+      710691072,
+      713110127,
+      731208624,
+      751041942,
+      751042045,
+      754150408,
+      754150411,
+      754150412,
+      755494871,
+      755494873,
+      755494878,
+      755494879,
+      755494882,
+      755494886,
+      755494888,
+      755494889,
+      755494890,
+      755494892,
+      755494907,
+      755499785,
+      755499787,
+      755499788,
+      755499792,
+      755499795,
+      760087164,
+      780336509,
+      780336517,
+      813721082,
+      828181340,
+      828181341,
+      838558917,
+      838562158,
+      871506873,
+      871518043,
+      899122822,
+      913916283,
+      940653804,
+      940653805,
+      941915566,
+      946133526,
+      946133527,
+      951725827,
+      951725835,
+      954274100,
+      976057753,
+      976057755,
+      991556780,
+      991556804,
+      991556805,
+      1004675454,
+      1004675455,
+      1004675456,
+      1004675465,
+      1004675479,
+      1004675489,
+      1014960661,
+      1014960662,
+      1033215616,
+      1035598363,
+      1036824890,
+      1037405112,
+      1037405113,
+      1051287009,
+      1051290577,
+      1051291909,
+      1082348521,
+      1104189673,
+      1104189680,
+      1104191237,
+      1104876895,
+      1104876900,
+      1106645226,
+      1106673991,
+      1106674376,
+      1106674844,
+      1106679164,
+      1112312578,
+      1112312628,
+      1121718550,
+      1121718560,
+      1121718561,
+      1121718562,
+      1134272262,
+      1147671599,
+      1150759579,
+      1151259876,
+      1151423660,
+      1151423661,
+      1153053883,
+      1153415945,
+      1153416282,
+      1153416343,
+      1153588491,
+      1153593357,
+      1158400423,
+      1160922362,
+      1163977018,
+      1170535386,
+      1181148011,
+      1193663290,
+      1193663293,
+      1193663302,
+      1193663303,
+      1193663304,
+      1193663307,
+      1193663308,
+      1193663336,
+      1205285435,
+      1205286573,
+      1206886535,
+      1206886536,
+      1206886537,
+      1209524365,
+      1211031499,
+      1212848568,
+      1213409437,
+      1213409438,
+      1214150621,
+      1217346857,
+      1222117200,
+      1222117201,
+      1222117202,
+      1228105465,
+      1237830106,
+      1238240336,
+      1243544584,
+      1250918971,
+      1251276007,
+      1251276008,
+      1259103158,
+      1259795277,
+      1259795278,
+      1263474936,
+      1263474942,
+      1264502053,
+      1274605357,
+      1274605358,
+      1276160586,
+      1276160594,
+      1276160644,
+      1276160645,
+      1276160658,
+      1276160659,
+      1276160670,
+      1277694448,
+      1277694458,
+      1280042346,
+      1280042348,
+      1280042448,
+      1280736630,
+      1282142267,
+      1284689941,
+      1284689942,
+      1284689951,
+      1295392145,
+      1297416483,
+      1329340981,
+      1329340982,
+      1329340983,
+      1329585844,
+      1337242069,
+      1341649490,
+      1347962110,
+      1351552463,
+      1351552464,
+      1358424385,
+      1358425975,
+      1368172999,
+      1378637622,
+      1378670106,
+      1378684821,
+      1378684822,
+      1378684823,
+      1378684828,
+      1378723347,
+      1378723348,
+      1378723353,
+      1378723354,
+      1378892991,
+      1378892999,
+      1378893000,
+      1378893001,
+      1379017104,
+      1382773556,
+      1382773558,
+      1382773560,
+      1382773568,
+      1382773569,
+      1382773570,
+      1382773571,
+      1383222197,
+      1389478307,
+      1410901443,
+      1410901445,
+      1410901446,
+      1420966050,
+      1420968471,
+      1420971758,
+      1420971760,
+      1420971761,
+      1420971763,
+      1420971764,
+      1420971765,
+      1420971766,
+      1420971767,
+      1420971768,
+      1420971769,
+      1420971771,
+      1420971772,
+      1420971773,
+      1421043436,
+      1421043438,
+      1424133021,
+      1424133022,
+      1436270806,
+      1459264015,
+      1466990893,
+      1466990894,
+      1469691826,
+      1472550600,
+      1475308456,
+      1479276653,
+      1492663453,
+      1494423990,
+      1494423991,
+      1494950085,
+      1495354686,
+      1495354692,
+      1530982506,
+      1539304495,
+      1539304632,
+      1539304748,
+      1540151959,
+      1565009701,
+      1567539373,
+      1568241861,
+      1569869813
+    ],
+    "nodesOutsideBBox": 8955
+  },
+  "runtime": {
+    "seconds": 197.61667593500005,
+    "parentPasses": 4,
+    "peakRSSKiB": 1082512,
+    "pyosmiumVersion": "4.3.2",
+    "cpuLimit": "2 CPU cgroup"
+  },
+  "license": "ODbL-1.0",
+  "attribution": "\u00a9 OpenStreetMap contributors; parent extract Geofabrik"
+}
