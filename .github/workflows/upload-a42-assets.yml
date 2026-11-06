@@ -1,0 +1,38 @@
+name: Upload verified A42 release assets
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Temporary transfer issue number
+        required: true
+        type: number
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: a42-release-asset-upload
+  cancel-in-progress: false
+jobs:
+  upload:
+    if: >-
+      github.repository == 'NogeomHub/valhalla-routing-poc' &&
+      github.event.repository.private == false &&
+      github.event.repository.owner.type == 'User' &&
+      github.actor == github.repository_owner
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Reassemble, verify, upload and verify again
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TRANSFER_ISSUE: ${{ inputs.issue_number }}
+        run: python3 scripts/upload_a42_assets.py --issue "$TRANSFER_ISSUE"
+      - name: Remove temporary transfer comments even after a failure
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TRANSFER_ISSUE: ${{ inputs.issue_number }}
+        run: python3 scripts/upload_a42_assets.py --cleanup-issue "$TRANSFER_ISSUE"
